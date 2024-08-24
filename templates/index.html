@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="jumbotron p-4 bg-light rounded">
+                <h2>Manage your <b>students</b>
+                    <button type="button" class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#addStudentModal">Add Student</button>
+                </h2>
+ 
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                  <ul>
+                    {% for message in messages %}
+                      <li>{{ message }}</li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              {% endwith %}
+              
+
+                <table class="table rounded table-hover table-dark">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Grade</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>01</td>
+                            <td>Abdi Shariif</td>
+                            <td>shariif.b@gmail.com</td>
+                            <td>f4</td>
+                            <td>
+                                <a href="#" class="btn btn-warning btn-xs" data-bs-toggle="modal" data-bs-target="#editStudentModal" onclick="populateEditModal(1, 'Abdi Shariif', 'shariif.b@gmail.com', 'f4')">Edit</a>
+                                <a href="#" class="btn btn-danger btn-xs" onclick="return confirm('Do you want to delete this?')">Delete</a>
+                            </td>
+                        </tr>
+                        <!-- Additional rows as needed -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Add Student Modal -->
+            <div id="addStudentModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Add Student</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+
+                            <form action="{{url_for('insert')}}" method="POST">
+
+
+                                <div class="form-group">
+                                    <label for="add-student-id">ID:</label>
+                                    <input type="number" class="form-control" id="add-student-id" name="student_id" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="add-student-name">Name:</label>
+                                    <input type="text" class="form-control" id="add-student-name" name="name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="add-student-email">Email:</label>
+                                    <input type="email" class="form-control" id="add-student-email" name="email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="add-student-grade">Grade:</label>
+                                    <input type="text" class="form-control" id="add-student-grade" name="grade" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary mt-3">add new student</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Edit Student Modal -->
+       <!-- Edit Student Modal -->
+<div id="editStudentModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">update Student information</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="" method="POST">
+                    <div class="form-group">
+                        <label for="edit-student-id">ID:</label>
+                        <input type="number" class="form-control" id="edit-student-id" name="student_id"   readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-student-name">Name:</label>
+                        <input type="text" class="form-control" id="edit-student-name" name="student_name" value="sharif" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-student-email">Email:</label>
+                        <input type="email" class="form-control" id="edit-student-email" name="student_email" value="sharif@gmail.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-student-grade">Class:</label>
+                        <input type="text" class="form-control" id="edit-student-grade" name="grade" value="f4" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3">update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
