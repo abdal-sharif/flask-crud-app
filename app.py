@@ -50,6 +50,35 @@ def insert():
 
 
 
+@app.route('/update', methods=['POST'])
+def update():
+    if request.method == 'POST':
+        student_id = request.form.get('student_id')  # Corrected to match the form field name
+
+        # Fetch the data from the database using the correct ID
+        my_data = Data.query.get(student_id)
+
+        # Update the fields
+        my_data.name = request.form['student_name']
+        my_data.email = request.form['student_email']
+        my_data.grade = request.form['grade']
+
+        # Commit the changes to the database
+        db.session.commit()
+
+        # Flash a success message
+        flash("Updated Student successfully")
+
+        # Redirect to the index page
+        return redirect(url_for('index'))
+
+                                     
+        
+
+@app.route('/delete/<id>' , methods=['GET', 'POST'])
+def delete():
+    my_data = Data.QUE
+
 
 if __name__ == '__main__':
     app.run(debug=True)
